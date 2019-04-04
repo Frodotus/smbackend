@@ -187,25 +187,22 @@ paths:
           example: 3046
         - name: geometry
           in: query
-          description: If parameter value is either true or 1, return the complex geometry
+          description: If parameter value is true, return the complex geometry
             of the unit in the field "geometry". Most units only have point type
             geometries, which are returned in the location field. Some however
             have polygon type geometries, eg. skiing tracks or outdoor areas.
             These complex geometries must be explicitly requested with this
             parameter.
           schema:
-            # FIXME only this values are that matters?
-            oneOf:
-              - type: boolean
-                example: true
-              - type: integer
-                example: 1
+            type: boolean
+            default: false
           example: true
         - name: maintenance_organization
           in: query
           description: A highly specialized query parameter used for filtering.
           schema:
             type: string
+          # FIXME example missing
           example:
         - name: category
           in: query
@@ -780,7 +777,7 @@ paths:
                           $ref: "#/components/schemas/address"
                   - $ref: "#/components/schemas/common_collection"
 servers:
-  - url: http://localhost:8000/v2 #https://api.hel.fi/servicemap/v2
+  - url: https://api.hel.fi/servicemap/v2
 components:
   parameters:
     page_param:
