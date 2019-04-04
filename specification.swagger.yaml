@@ -177,7 +177,16 @@ paths:
             items:
               type: string
           example: helsinki/kaupunginosa:kallio
-        - $ref: "#/components/parameters/unit_bbox_param"
+        - name: bbox
+          in: query
+          description: Search for events that are within this bounding box. Decimal coordinates
+            are given in order west, south, east, north. Period is used as decimal
+            separator.
+          schema:
+            type: array
+            items:
+              type: number
+          example: 382000.000,6673000.000,383000.000,6674000.000
         - name: bbox_srid
           in: query
           description: An SRID coordinate reference system identifier which specifies the
@@ -739,7 +748,7 @@ paths:
             more information
           schema:
             type: string
-          example: espoo,vantaa
+          example: espoo
         - name: municipality_name
           in: query
           description: A municipality name to be used as a filter, in the language
@@ -800,8 +809,7 @@ components:
       name: include
       in: query
       description: Embed the complete content of given reference-type fields directly into
-        the response, otherwise they are returned as identifiers. Separate field
-        names by commas.
+        the response, otherwise they are returned as identifiers. Separate field names by commas.
       schema:
         type: array
         items:
@@ -809,29 +817,16 @@ components:
     only_param:
       name: only
       in: query
-      description: Restrict the field returned in the results. Separate field names by
-        commas.'
+      description: Restrict the field returned in the results. Separate field names by commas.'
       schema:
         type: array
         items:
           type: string
-    unit_bbox_param:
-      name: bbox
-      in: query
-      description: Search for events that are within this bounding box. Decimal coordinates
-        are given in order west, south, east, north. Period is used as decimal
-        separator.
-      schema:
-        type: array
-        items:
-          type: number
-      example: 382000.000,6673000.000,383000.000,6674000.000
   schemas:
     unit:
       type: object
       title: Unit
-      description: Units are physical locations where organizations provide services for
-        patrons
+      description: Units are physical locations where organizations provide services for patrons
       required:
         - id
         - name
