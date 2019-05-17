@@ -1,3 +1,4 @@
+from datetime import timedelta
 from rest_framework import serializers
 from django.utils import timezone
 from django.db import transaction
@@ -40,6 +41,9 @@ class BaseObservationSerializer(serializers.BaseSerializer):
             property=obj.property_id,
             time=timezone.localtime(obj.time).strftime(
                 '%Y-%m-%dT%H:%M:%S.%f%z'),
+            expitation_time=timezone.localtime(
+                obj.time + timedelta(hours=1) * obj.property.expiration
+            ).strftime("%Y-%m-%dT%H:%M:%S.%f%z"),
         )
 
     def to_internal_value(self, data):
